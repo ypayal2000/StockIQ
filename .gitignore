@@ -1,3 +1,5 @@
 untracked.txt
 stockvenv/
 test_connection.py
+__pycache__/
+.vscode/
