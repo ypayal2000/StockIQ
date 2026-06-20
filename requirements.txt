@@ -1,0 +1,9 @@
+pandas
+yfinance
+sqlalchemy
+psycopg2-binary
+python-dotenv
+logger
+pyspark==3.5.1
+scikit-learn
+joblib
