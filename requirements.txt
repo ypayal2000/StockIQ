@@ -7,3 +7,6 @@ logger
 pyspark==3.5.1
 scikit-learn
 joblib
+feedparser
+transformers
+torch

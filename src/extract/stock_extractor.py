@@ -1,19 +1,19 @@
 import yfinance as yf
 import pandas as pd
-from utils.logger import logger
+from src.utils.logger import logger
 
 
 class StockExtractor:
 
     def __init__(self):
-        self.tickers = ["TCS.NS", "INFY.NS", "RELIANCE.NS", "HDFCBANK.NS"]
+        self.tickers = ["TCS.NS", "INFY.NS", "RELIANCE.NS", "HDFCBANK.NS", "ITC.NS", "HINDUNILVR.NS"]
 
     def extract(self):
         all_data = []
 
         for ticker in self.tickers:
             logger.info(f"Fetching {ticker}")
-            df = yf.download(ticker, period="5d", progress=False, auto_adjust=False)
+            df = yf.download(ticker, period="5Y", progress=False, auto_adjust=False)
 
             if df.empty:
                 continue

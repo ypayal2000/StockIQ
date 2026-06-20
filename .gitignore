@@ -6,3 +6,6 @@ __pycache__/
 deprecated/
 logs/
 jars/
+requirements-airflow.txtdata
+data/
+src/ml/models/

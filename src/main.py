@@ -1,9 +1,9 @@
-from config.database import engine
+from src.config.database import engine
 
-from extract.stock_extractor import StockExtractor
-from transform.validator import DataValidator
-from load.postgre_loader import PostgresLoader
-from utils.logger import logger
+from src.extract.stock_extractor import StockExtractor
+from src.transform.validator import DataValidator
+from src.load.postgre_loader import PostgresLoader
+from src.utils.logger import logger
 
 def run_pipeline():
 

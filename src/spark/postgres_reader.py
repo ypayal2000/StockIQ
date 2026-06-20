@@ -1,7 +1,5 @@
 from pyspark.sql import SparkSession
-import os
 
-os.environ["TZ"] = "Asia/Kolkata"
 
 def create_spark_session():
     return (
@@ -9,12 +7,19 @@ def create_spark_session():
         .appName("StockIQ")
         .master("local[*]")
         .config(
+            "spark.driver.extraJavaOptions",
+            "-Duser.timezone=UTC"
+        )
+        .config(
+            "spark.executor.extraJavaOptions",
+            "-Duser.timezone=UTC"
+        )
+        .config(
             "spark.jars",
             "jars\\postgresql-42.7.3.jar"
         )
         .getOrCreate()
     )
-
 
 if __name__ == "__main__":
 

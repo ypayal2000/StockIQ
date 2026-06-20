@@ -96,17 +96,22 @@ services:
 
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
 
+      PYTHONPATH: /opt/airflow
+
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_HOST: stock_postgres
       DB_PORT: 5432
       DB_NAME: stock_market_db
+      
 
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/plugins:/opt/airflow/plugins
       - ./src:/opt/airflow/src
+      - ./config:/opt/airflow/config
+      - ./jars:/opt/airflow/jars
 
     ports:
       - "8080:8080"
@@ -133,17 +138,21 @@ services:
 
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow_postgres:5432/airflow
 
+      PYTHONPATH: /opt/airflow
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_HOST: stock_postgres
       DB_PORT: 5432
       DB_NAME: stock_market_db
+      
 
     volumes:
       - ./airflow/dags:/opt/airflow/dags
       - ./airflow/logs:/opt/airflow/logs
       - ./airflow/plugins:/opt/airflow/plugins
       - ./src:/opt/airflow/src
+      - ./config:/opt/airflow/config
+      - ./jars:/opt/airflow/jars
 
     command: scheduler
 
