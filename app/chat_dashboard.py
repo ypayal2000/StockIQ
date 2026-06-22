@@ -61,64 +61,79 @@ query = st.chat_input("Ask StockIQ...")
 if query:
 
     st.session_state.messages.append({"role": "user", "content": query})
-
     with st.chat_message("user"):
         st.markdown(query)
 
     with st.chat_message("assistant"):
         with st.spinner("Analyzing..."):
-            result = graph.invoke({"user_query": query})
 
-            route = result["agents"]
-            symbol = result["symbol"]
+            result = graph.invoke({"user_query": query})
             response = result["response"]
 
-            # -------------------------
-            # NEWS RESPONSE
-            # -------------------------
+            # ------------------------
+            # Investment Recommendation
+            # ------------------------
 
-            if route == "news":
+            if "recommendation" in response:
+
                 answer = f"""
-                ### 📰 News Analysis
-                **Stock:** {symbol}
+                # 📈 Investment Recommendation
+                **Stock:** {response["symbol"]}
+                {response["recommendation"]}
+                """
+
+            # ------------------------
+            # News Response
+            # ------------------------
+
+            elif "summary" in response:
+
+                answer = f"""
+                # 📰 News Analysis
+                **Stock:** {response["symbol"]}
                 {response["summary"]}
-            **Sentiment Score:** {response["sentiment_score"]}
-            """     
+                ### Sentiment Score
+                {response["sentiment_score"]}
+                """
 
-            # -------------------------
-            # PREDICTION RESPONSE
-            # -------------------------
+            # ------------------------
+            # Prediction Response
+            # ------------------------
 
-            elif route == "prediction":
-                answer = f""" ### 📊 Prediction
-                **Stock:** {symbol}
+            elif "probability_up" in response:
+
+                answer = f"""
+                # 📊 Prediction
+                **Stock:** {response["symbol"]}
                 **Prediction:** {response["prediction"]}
                 **Probability Up:** {response["probability_up"]:.2%}
                 **Probability Down:** {response["probability_down"]:.2%}
                 **Confidence:** {response["confidence"]:.2%}
                 """
 
-            # -------------------------
-            # ANALYSIS RESPONSE
-            # -------------------------
+            # ------------------------
+            # Analysis Response
+            # ------------------------
 
             else:
-                answer = f"""### 📈 Stock Analysis
-            **Stock:** {symbol}
-            **Prediction:** {response["prediction"]}
-            **Confidence:** {response["confidence"]}%
-            **Sentiment:** {response["sentiment"]}
-            ### Growth Drivers
-            """ + "\n".join([f"- {item}"
-                        for item in response["growth_drivers"]
-                    ]
-                )
 
-                answer += "\n\n### Risks\n\n"
+                answer = f"""
+                # 📋 Company Analysis
+
+                **Stock:** {response["symbol"]}
+                **Prediction:** {response["prediction"]}
+                **Confidence:** {response["confidence"]}%
+                **Risk Level:** {response["risk_level"]}
+                **Sentiment:** {response["sentiment"]}
+                ## Growth Drivers
+
+                """ + "\n".join([f"- {item}" for item in response["growth_drivers"]])
+
+                answer += "\n\n## Risks\n\n"
                 answer += "\n".join([f"- {item}" for item in response["risks"]])
 
-                answer += "\n\n### Outlook\n\n"
-                answer += "\n".join( [f"- {item}" for item in response["outlook"]])
+                answer += "\n\n## Outlook\n\n"
+                answer += "\n".join([f"- {item}" for item in response["outlook"]])
 
             st.markdown(answer)
 
