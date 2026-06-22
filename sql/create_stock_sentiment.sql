@@ -17,3 +17,22 @@ CREATE TABLE stock_sentiment (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
+
+
+CREATE TABLE IF NOT EXISTS stock_sentiment_summary (
+
+    symbol VARCHAR(20),
+
+    total_articles INTEGER,
+
+    positive_count INTEGER,
+
+    negative_count INTEGER,
+
+    neutral_count INTEGER,
+
+    sentiment_score FLOAT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);

@@ -22,9 +22,7 @@ class StockExtractor:
                 df.columns = df.columns.get_level_values(0)
 
             df.reset_index(inplace=True)
-
             df["symbol"] = ticker
-
             df = df[["Date", "Open", "High", "Low", "Close", "Volume", "symbol"]]
 
             all_data.append(df)

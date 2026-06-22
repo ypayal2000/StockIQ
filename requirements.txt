@@ -10,3 +10,12 @@ joblib
 feedparser
 transformers
 torch
+pypdf
+python-docx
+langchain
+langchain-text-splitters
+sentence-transformers
+pinecone
+streamlit
+langgraph
+langchain-ollama

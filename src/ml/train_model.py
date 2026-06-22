@@ -14,6 +14,7 @@ from sklearn.metrics import (
 )
 
 # from src.utils.logger import logger
+from src.config.constants import FEATURE_COLUMNS
 
 
 class StockModelTrainer:
@@ -23,33 +24,12 @@ class StockModelTrainer:
 
     def prepare_features(self, df):
 
-        features = [
-            "close",
-
-            "moving_avg_3",
-            "moving_avg_5",
-            "moving_avg_10",
-            "moving_avg_20",
-
-            "daily_return_pct",
-            "return_3d",
-            "return_5d",
-
-            "avg_volume_5",
-            "avg_volume_20",
-
-            "price_vs_ma20",
-            "daily_range_pct",
-
-            "volatility",
-            "momentum_10",
-            "volume_spike",
-        ]
+        features = FEATURE_COLUMNS
 
         X = df[features]
         y = df["target"]
 
-        return X, y
+        return X, y, features
 
     def train(self):
 
@@ -57,7 +37,7 @@ class StockModelTrainer:
 
         df = self.load_data()
 
-        X, y = self.prepare_features(df)
+        X, y, features= self.prepare_features(df)
 
         X_train, X_test, y_train, y_test = train_test_split(
             X,
@@ -99,7 +79,13 @@ class StockModelTrainer:
 
         model_path = ("src/ml/models/stock_predictor.pkl")
 
-        joblib.dump(model, model_path)
+        joblib.dump(
+            {
+                "model": model,
+                "features": features
+            },
+            model_path
+        )
 
         print(f"\nModel saved to: {model_path}")
 

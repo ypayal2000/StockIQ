@@ -9,3 +9,4 @@ jars/
 requirements-airflow.txtdata
 data/
 src/ml/models/
+.env
