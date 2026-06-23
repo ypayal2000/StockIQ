@@ -144,7 +144,6 @@ services:
       DB_HOST: stock_postgres
       DB_PORT: 5432
       DB_NAME: stock_market_db
-      
 
     volumes:
       - ./airflow/dags:/opt/airflow/dags
