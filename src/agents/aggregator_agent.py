@@ -12,44 +12,56 @@ class AggregatorAgent:
         self.llm = get_llm()
 
         self.prompt = ChatPromptTemplate.from_template(
-            """
-You are a professional equity research analyst.
+           """
+        You are a professional equity research analyst.
 
-Use the information below to generate an investment recommendation.
+        Use ONLY the provided information.
 
-Prediction Data:
-{prediction}
+        Do NOT invent:
+        - target prices
+        - expected returns
+        - company names
+        - financial metrics not provided
 
-News Data:
-{news}
+        Return your answer in EXACT markdown format:
 
-Fundamental Analysis:
-{analysis}
+        ## Investment Recommendation
 
-Generate an investment recommendation.
+        ### Expected Direction
+        <value>
 
-Rules:
+        ### Probability Up
+        <value>
 
-- Use ONLY the information provided.
-- Do NOT invent target prices.
-- Do NOT invent expected returns.
-- Do NOT invent company names.
-- If information is unavailable, do not mention it.
-- Keep recommendation grounded in the provided data.
+        ### Probability Down
+        <value>
 
-Return:
+        ### Confidence Score
+        <value>
 
-Expected Direction
-Probability Up
-Probability Down
-Confidence Score
-Risk Level
-Key Growth Drivers
-Key Risks
-Recommendation
+        ### Risk Level
+        <value>
 
-Keep the response concise and investor-focused.
-"""
+        ### Key Growth Drivers
+        - item 1
+        - item 2
+
+        ### Key Risks
+        - item 1
+        - item 2
+
+        ### Recommendation
+        <short recommendation>
+
+        Prediction Data:
+        {prediction}
+
+        News Data:
+        {news}
+
+        Analysis Data:
+        {analysis}
+        """
         )
 
     def run(self, state):

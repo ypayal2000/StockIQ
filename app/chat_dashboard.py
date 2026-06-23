@@ -7,7 +7,7 @@ sys.path.append(str(project_root))
 import streamlit as st
 
 from src.agents.stock_graph import graph
-
+from src.upload.upload_service import UploadService
 
 # ---------------------------------
 # Page Config
@@ -37,6 +37,52 @@ st.markdown(
     - What are the growth drivers of Infosys?
 """
 )
+
+st.divider()
+
+# ---------------------------------
+# Upload Annual Report
+# ---------------------------------
+
+upload_service = UploadService()
+
+st.subheader("📄 Upload Annual Report")
+
+selected_symbol = st.selectbox(
+    "Select Company",
+    [
+        "TCS.NS",
+        "INFY.NS",
+        "RELIANCE.NS",
+        "ITC.NS",
+        "HDFCBANK.NS",
+        "HINDUNILVR.NS"
+    ]
+)
+
+uploaded_file = st.file_uploader(
+    "Choose PDF",
+    type=["pdf"]
+)
+
+if st.button("Upload Report"):
+
+    if uploaded_file is not None:
+
+        key = upload_service.upload_document(
+            uploaded_file,
+            selected_symbol
+        )
+
+        st.success(
+            f"Uploaded Successfully: {key}"
+        )
+
+    else:
+
+        st.warning(
+            "Please select a PDF file."
+        )
 
 st.divider()
 

@@ -9,26 +9,19 @@ class NewsSummarizer:
         self.llm = get_llm()
         self.prompt = ChatPromptTemplate.from_template(
         """
-        You are a professional stock market analyst.
+        You are a financial news analyst.
 
-        Analyze the following news headlines.
-
-        News Headlines:
-        {headlines}
-
-        Sentiment Score:
-        {sentiment_score}
-
-        Generate a concise news brief.
+        Summarize the headlines.
 
         Rules:
-        - Maximum 150 words
-        - Mention key events
-        - Mention market sentiment
-        - Explain possible impact on stock
-        - Use professional language
 
-        Return only the summary.
+        - Maximum 120 words
+        - Focus only on recent events
+        - Mention overall sentiment
+        - Do NOT provide investment advice
+        - Do NOT recommend buying or selling
+
+        Return markdown.
         """
         )
 

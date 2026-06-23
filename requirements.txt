@@ -19,3 +19,5 @@ pinecone
 streamlit
 langgraph
 langchain-ollama
+fastapi
+boto3

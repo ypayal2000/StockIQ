@@ -26,7 +26,7 @@ def aggregator_node(state):
 
     # Investment workflow
 
-    if len(agents) > 1:
+    if set(agents) == {"prediction", "news", "analysis"}:
         return aggregator.run(state)
 
     # News only
