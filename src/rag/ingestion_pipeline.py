@@ -1,3 +1,5 @@
+import os
+
 from src.rag.document_loader import DocumentLoader
 from src.rag.chunker import DocumentChunker
 from src.rag.embedder import EmbeddingGenerator
@@ -20,13 +22,19 @@ class RAGIngestionPipeline:
 
         logger.info(f"Starting ingestion for {file_path}")
 
-        document = self.loader.load_document(file_path)
-        chunks = self.chunker.chunk_document(document)
-        
-        embedded_chunks = (self.embedder.embed_chunks(chunks))
-        self.vector_store.store_embeddings(embedded_chunks,symbol)
+        try:
 
-        logger.info(f"Ingestion completed for {file_path}")
+            document = self.loader.load_document(file_path)
+            chunks = self.chunker.chunk_document(document)
+            embedded_chunks = (self.embedder.embed_chunks(chunks))
+            self.vector_store.store_embeddings(embedded_chunks, symbol)
+
+            logger.info(f"Ingestion completed for {file_path}")
+
+        finally:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                logger.info(f"Deleted temp file: {file_path}")
 
 
     def ingest_documents(self, documents: list):

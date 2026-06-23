@@ -36,3 +36,19 @@ CREATE TABLE IF NOT EXISTS stock_sentiment_summary (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
+
+
+CREATE TABLE document_registry (
+
+    id SERIAL PRIMARY KEY,
+
+    symbol VARCHAR(50),
+
+    file_name VARCHAR(500),
+
+    s3_key VARCHAR(1000),
+
+    upload_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    status VARCHAR(50)
+);

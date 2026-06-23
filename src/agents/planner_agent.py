@@ -20,6 +20,7 @@ class PlannerAgent:
         news
         prediction
         analysis
+        market_data
 
         Task:
 
@@ -36,8 +37,11 @@ class PlannerAgent:
         Analysis queries:
         → analysis
 
+        Market data queries:
+        → market_data
+
         Investment queries:
-        → prediction,news,analysis
+        → prediction,news,analysis,market_data
 
         Return ONLY valid JSON.
 
@@ -65,7 +69,13 @@ class PlannerAgent:
         Should I buy Infosys?
 
         Output:
-        {{"agents":["prediction","news","analysis"]}}
+        {{"agents":["prediction","news","analysis", "market_data]}}
+
+        Query:
+        What is latest TCS stock price?
+
+        Output:
+        {{"agents":["market_data"]}}
 
         User Query:
         {query}

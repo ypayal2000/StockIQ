@@ -10,5 +10,6 @@ class StockState(TypedDict):
     news_result: Optional[dict]
     prediction_result: Optional[dict]
     analysis_result: Optional[dict]
+    market_data_result: Optional[dict]
 
     response: Optional[dict]

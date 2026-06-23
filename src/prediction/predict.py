@@ -2,12 +2,13 @@ import joblib
 import pandas as pd
 
 from sqlalchemy import create_engine
+from src.config.database import engine
 from src.config.constants import FEATURE_COLUMNS
 
 class StockPredictor:
 
     def __init__(self):
-        self.engine = create_engine("postgresql://postgres:postgres@localhost:5432/stock_market_db")
+        self.engine = engine
         artifact = joblib.load("src/ml/models/stock_predictor.pkl")
         self.model = artifact["model"]
         self.features = FEATURE_COLUMNS

@@ -26,9 +26,15 @@ def aggregator_node(state):
 
     # Investment workflow
 
-    if set(agents) == {"prediction", "news", "analysis"}:
+    if set(agents) == {"market_data", "prediction", "news", "analysis"}:
         return aggregator.run(state)
 
+    #market data only
+
+    if "market_data" in agents:
+        state["response"] = (state["market_data_result"])
+        return state
+    
     # News only
 
     if "news" in agents:

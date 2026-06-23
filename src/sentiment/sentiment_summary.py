@@ -1,11 +1,11 @@
 import pandas as pd
-from sqlalchemy import create_engine
+from src.config.database import engine
 
 
 class SentimentSummary:
 
     def __init__(self):
-        self.engine = create_engine("postgresql://postgres:postgres@localhost:5432/stock_market_db")
+        self.engine = engine
 
 
     def load_data(self):

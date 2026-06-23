@@ -1,13 +1,16 @@
-from src.prediction.predict import StockPredictor
+from src.tools.prediction_tool import PredictionTool
 
 
 class PredictionAgent:
 
     def __init__(self):
-        self.predictor = StockPredictor()
+
+        self.tool = PredictionTool()
 
     def run(self, state):
+
         symbol = state["symbol"]
-        result = self.predictor.predict(symbol) 
-        state["prediction_result"] = result
+        result = self.tool.predict(symbol)
+        state["prediction_result"] = (result)
+
         return state

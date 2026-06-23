@@ -23,6 +23,26 @@ class AggregatorAgent:
         - company names
         - financial metrics not provided
 
+        Recommendation Rules
+
+        BUY
+        - Confidence Score above 70
+        - Positive sentiment
+        - Medium or Low risk
+
+        HOLD
+        - Confidence Score between 50 and 70
+        - Mixed or negative sentiment
+
+        AVOID
+        - Confidence Score below 50
+        - Strongly negative sentiment
+        - High risk
+
+        Never recommend BUY if:
+        - sentiment is strongly negative
+        - risk level is High
+
         Return your answer in EXACT markdown format:
 
         ## Investment Recommendation
@@ -42,6 +62,13 @@ class AggregatorAgent:
         ### Risk Level
         <value>
 
+        ### Current Market Data
+        Close Price
+        <value>
+
+        Volume
+        <value>
+
         ### Key Growth Drivers
         - item 1
         - item 2
@@ -52,6 +79,9 @@ class AggregatorAgent:
 
         ### Recommendation
         <short recommendation>
+
+        Market Data:
+        {market_data}
 
         Prediction Data:
         {prediction}
@@ -71,6 +101,7 @@ class AggregatorAgent:
         prediction_result = (state.get("prediction_result", {}))
         news_result = (state.get("news_result", {}))
         analysis_result = (state.get("analysis_result", {}))
+        market_data_result = state.get("market_data_result",{})
 
         analysis_summary = {"prediction": analysis_result.get("prediction"),
                     "risk_level": analysis_result.get("risk_level"),
@@ -83,7 +114,8 @@ class AggregatorAgent:
         chain = self.prompt | self.llm
 
         response = chain.invoke(
-            {
+            {   
+                "market_data": market_data_result,
                 "prediction": prediction_result,
                 "news": news_result,
                 "analysis": analysis_summary

@@ -1,6 +1,8 @@
 import feedparser
 import pandas as pd
 
+from src.utils.logger import logger
+
 
 class NewsFetcher:
 
@@ -14,7 +16,11 @@ class NewsFetcher:
             "RELIANCE.NS":
                 "https://news.google.com/rss/search?q=Reliance+Industries+stock",
             "HDFCBANK.NS":
-                "https://news.google.com/rss/search?q=HDFC+Bank+stock"
+                "https://news.google.com/rss/search?q=HDFC+Bank+stock",
+            "ITC.NS":
+                "https://news.google.com/rss/search?q=ITC+stock",
+            "HINDUNILVR.NS":
+                "https://news.google.com/rss/search?q=Hindustan+Unilever+stock",
         }
 
     def fetch_news(self):
@@ -23,8 +29,7 @@ class NewsFetcher:
 
         for symbol, feed_url in self.feeds.items():
 
-            print(f"Fetching news for {symbol}")
-
+            logger.info(f"Fetching news for {symbol}")
             feed = feedparser.parse(feed_url)
 
             for entry in feed.entries[:10]:
@@ -32,10 +37,7 @@ class NewsFetcher:
                 all_news.append({
                     "symbol": symbol,
                     "headline": entry.title,
-                    "published": entry.get(
-                        "published",
-                        None
-                    ),
+                    "published": entry.get("published", None),
                     "source": "Google News"
                 })
 
@@ -47,9 +49,5 @@ if __name__ == "__main__":
     fetcher = NewsFetcher()
 
     df = fetcher.fetch_news()
-
     print(df.head())
-
-    print(
-        f"\nTotal Articles: {len(df)}"
-    )
+    print(f"\nTotal Articles: {len(df)}")

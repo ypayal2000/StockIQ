@@ -68,21 +68,16 @@ uploaded_file = st.file_uploader(
 if st.button("Upload Report"):
 
     if uploaded_file is not None:
+        result = upload_service.upload_document(uploaded_file, selected_symbol)
+        
 
-        key = upload_service.upload_document(
-            uploaded_file,
-            selected_symbol
-        )
-
-        st.success(
-            f"Uploaded Successfully: {key}"
-        )
+        if result["status"] == "uploaded":
+            st.success(f"Uploaded Successfully: {result['key']}")
+        else:
+            st.warning(f"Document already exists: {result['key']}")
 
     else:
-
-        st.warning(
-            "Please select a PDF file."
-        )
+        st.warning("Please select a PDF file.")
 
 st.divider()
 
