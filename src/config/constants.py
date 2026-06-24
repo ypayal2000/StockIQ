@@ -1,11 +1,3 @@
-DATABASE_URL = (
-    "postgresql://postgres:postgres@localhost:5432/stock_market_db"
-)
-
-MODEL_PATH = (
-    "src/ml/models/stock_predictor.pkl"
-)
-
 FEATURE_COLUMNS = [
 
     "close",
@@ -29,12 +21,4 @@ FEATURE_COLUMNS = [
     "momentum_10",
     "volume_spike",
     "rsi_14"
-]
-
-TRACKED_SYMBOLS = [
-
-    "TCS.NS",
-    "INFY.NS",
-    "RELIANCE.NS",
-    "HDFCBANK.NS"
 ]
